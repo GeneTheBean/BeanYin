@@ -1,15 +1,49 @@
 .text-bar {
   width:100%;
+  margin-top: 10px;
 }
 
 .text-bar input {
   font-family: Comic Sans MS;
 }
 
+.card {
+}
+
+.study-set-item {
+  font-family: Comic Sans MS;
+}
+
+.select-set {
+  font-family: Comic Sans MS;
+}
+
+.thumbnail {
+  margin-top: 10px;
+  width: 250px;
+  height: 250px;
+}
 .card-description {
   font-family: Comic Sans MS;
 }
 
-.input{
+.input {
    box-sizing: border-box;
+}
+
+.shuffle-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.response-bar {
+  width = 80%;
+  height = 80%;
+}
+
+.response-img {
+  width: 20px;
+  height: 20px;
 }

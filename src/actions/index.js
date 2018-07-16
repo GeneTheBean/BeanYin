@@ -22,6 +22,7 @@ export function fetchStudySets() {
 }
 
 export function selectSet(studySet) {
+
   return {
     type: STUDY_SET_SELECTED,
     payload: studySet

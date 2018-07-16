@@ -19,7 +19,7 @@ class StudySets extends Component {
               key = {studySet.id}
               title = {studySet.title}
               onClick={() => this.props.selectSet(studySet)}
-              className='list-group-item'>{studySet.title}
+              className='study-set-item list-group-item'>{studySet.title}
           </li>
       );
     });

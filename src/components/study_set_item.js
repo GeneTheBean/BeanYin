@@ -3,9 +3,9 @@ import React from 'react';
 const StudySetItem = (card) => {
 
   return (
-      <div className='media'>
+      <div className='card media'>
           <div className='media-middle'>
-          <img className='media-object' src={card.url} />
+          <img className='thumbnail media-object' src={card.url} />
         </div>
         <div className='media-body'>
           <div className='card-description'>

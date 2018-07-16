@@ -33,8 +33,4 @@ characterMap.set('ü2','ǘ');
 characterMap.set('ü3','ǚ');
 characterMap.set('ü4','ǜ');
 
-
-
-console.log(characterMap);
-
 export default characterMap;

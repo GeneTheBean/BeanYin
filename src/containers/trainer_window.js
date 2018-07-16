@@ -3,8 +3,12 @@ import {connect} from 'react-redux';
 import FlashCardsWindow from '../components/flash_cards_window';
 import PinyinTextBar from '../components/pinyin_text_bar';
 import StudySetItem from '../components/study_set_item';
+import UIWindow from '../components/ui_window';
+import ResponseBar from '../components/response_bar';
 
 class TrainerWindow extends Component {
+  shuffleIcons = ['/img/icons/shuffle-icon-off.png', '/img/icons/shuffle-icon-on.png'];
+  responseIcons = ['/img/icons/blank.png', '/img/icons/x_mark.png', '/img/icons/check_mark.png'];
 
   constructor(props) {
     super(props);
@@ -13,10 +17,13 @@ class TrainerWindow extends Component {
       setItemList: [],
       currentCard: null,
       currentCardIndex: 0,
-      setSize: 0
+      setSize: 0,
+      shuffle: 0,
+      responseUrl: this.responseIcons[0]
     };
 
     this.checkUserSubmit = this.checkUserSubmit.bind(this);
+    this.toggleShuffle = this.toggleShuffle.bind(this);
   }
 
   updateCardSet(cardSet) {
@@ -35,14 +42,19 @@ class TrainerWindow extends Component {
   }
 
   componentDidUpdate(prevProps) {
+
     if (this.props.activeSet !== prevProps.activeSet) {
       var setItemList = this.updateCardSet(this.props.activeSet);
+      var index = (this.state.shuffle == 0) ? 0: this.getRandomCardIndex();
+      var currentCard = setItemList[index];
+
       this.setState(
         {
           setItemList: setItemList,
-          currentCard: setItemList[0],
+          currentCard: currentCard,
           setSize: setItemList.length,
-          currentCardIndex: 0
+          currentCardIndex: index,
+          responseUrl: this.responseIcons[0]
         }
       );
     }
@@ -50,33 +62,61 @@ class TrainerWindow extends Component {
   }
 
   checkUserSubmit(answer) {
-    if(answer === this.state.currentCard.props.term) {
-      console.log('correct!');
+    if(this.state.currentCard && answer === this.state.currentCard.props.term) {
+      this.setState({responseUrl: this.responseIcons[2]});
     }
 
-    else console.log('wrong!');
+    else this.setState({responseUrl: this.responseIcons[1]});
 
+    this.nextCard();
+  }
+
+  nextCard() {
+    var index = this.state.currentCardIndex;
+
+    if(this.state.shuffle) {
+        index = this.getRandomCardIndex()
+    }
+
+    else index++;
 
     this.setState(
       {
-        currentCardIndex: this.state.currentCardIndex + 1,
-        currentCard: this.state.setItemList[this.state.currentCardIndex + 1]
+        currentCardIndex: index,
+        currentCard: this.state.setItemList[index]
       });
+
+    if (this.state.currentCardIndex == this.state.setSize - 1) { //Reached The end of set list
+      this.setState({currentCardIndex: 0, currentCard:this.state.setItemList[0]});
+    }
+  }
+
+  toggleShuffle() {
+    var shuffle = (this.state.shuffle == 0) ? 1: 0;
+    this.setState({shuffle: shuffle});
+  }
+
+  getRandomCardIndex() {
+    return parseInt((Math.random() * this.state.setSize - 1) + 0);
   }
 
   render() {
 
     if(!this.props.activeSet)  {
       return (
-        <div className='col-md-8'>
-          <h1> Select a study set. </h1>
+        <div className='select-set col-md-8' align='center'>
+          <h2> Select a study set. </h2>
         </div>
       );
     }
 
     return (
       <div className='col-md-8'>
+        <UIWindow
+          toggleShuffle = {this.toggleShuffle}
+          url = {this.shuffleIcons[this.state.shuffle]} />
         <FlashCardsWindow currentCard = {this.state.currentCard}/>
+        <ResponseBar url = {this.state.responseUrl} />
         <PinyinTextBar onInputSubmit = {this.checkUserSubmit}/>
       </div>
     );
