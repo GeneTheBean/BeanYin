@@ -26,10 +26,14 @@ class StudySets extends Component {
   }
 
   render() {
+    console.log(this.props.studySets);
     return(
-      <ul className='list-group col-sm-4'>
-        {this.renderList()}
-      </ul>
+      <div className='col-sm-4' align='center'>
+        <h3> Your Study Sets </h3>
+        <ul className='list-group'>
+          {this.renderList()}
+        </ul>
+      </div>
     );
   }
 }

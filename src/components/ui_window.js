@@ -6,6 +6,7 @@ const UIWindow = (props) => {
     <div className = 'menu-bar'>
       Menu Bar
       <input className = 'shuffle-icon' type='image'
+             title='shuffle'
              src= {props.url}
              onClick={() => props.toggleShuffle()} />
     </div>
