@@ -14,7 +14,7 @@ export function fetchStudySets() {
     }).then((data) => {
         return data;
     });
-  
+
   return {
     type: FETCH_SETS,
     payload: request

@@ -6,6 +6,7 @@ import StudySetItem from '../components/study_set_item';
 import UIWindow from '../components/ui_window';
 import ResponseBar from '../components/response_bar';
 import UserButtons from '../components/user_buttons.js';
+import audioMap from '../audio_map.js';
 
 class TrainerWindow extends Component {
   shuffleIcons = ['/img/icons/shuffle-icon-off.png', '/img/icons/shuffle-icon-on.png'];
@@ -27,6 +28,7 @@ class TrainerWindow extends Component {
     this.toggleShuffle = this.toggleShuffle.bind(this);
     this.prevCard = this.prevCard.bind(this);
     this.nextCard = this.nextCard.bind(this);
+    this.playAudio = this.playAudio.bind(this);
   }
 
   updateCardSet(cardSet) {
@@ -43,8 +45,6 @@ class TrainerWindow extends Component {
         );
       });
   }
-
-
 
   componentDidUpdate(prevProps) {
 
@@ -124,6 +124,11 @@ class TrainerWindow extends Component {
     }
   }
 
+  playAudio() {
+    var audio = new Audio(audioMap.get(this.state.currentCard.props.term));
+    audio.play();
+  }
+
   toggleShuffle() {
     var shuffle = (this.state.shuffle == 0) ? 1: 0;
     this.setState({shuffle: shuffle});
@@ -151,7 +156,8 @@ class TrainerWindow extends Component {
         <FlashCardsWindow currentCard = {this.state.currentCard}/>
         <UserButtons
           skipCard = {this.nextCard}
-          rewindCard = {this.prevCard}/>
+          rewindCard = {this.prevCard}
+          playSound = {this.playAudio}/>
         <ResponseBar url = {this.state.responseUrl} />
         <PinyinTextBar onInputSubmit = {this.checkUserSubmit}/>
       </div>

@@ -7,6 +7,10 @@ const UserButtons = (props) => {
       src= {'/img/icons/rewind.png'}
       onClick={() => props.rewindCard()}
       title='rewind'/>
+    <input className = 'play-icon' type='image'
+        src= {'/img/icons/play.png'}
+        onClick={() => props.playSound()}
+        title='play'/>
     <input className = 'skip-icon' type='image'
       src= {'/img/icons/skip.png'}
       onClick={() => props.skipCard()}
