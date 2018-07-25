@@ -1,16 +1,13 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import FlashCardsWindow from '../components/flash_cards_window';
-import PinyinTextBar from '../components/pinyin_text_bar';
-import StudySetItem from '../components/study_set_item';
-import UIWindow from '../components/ui_window';
-import ResponseBar from '../components/response_bar';
-import UserButtons from '../components/user_buttons.js';
+import FlashCardsWindow from './flash_cards_window';
+import PinyinTextBar from './pinyin_text_bar';
+import StudySetItem from './study_set_item';
+import UIWindow from './ui_window';
+import ResponseBar from './response_bar';
+import UserButtons from './user_buttons.js';
 import audioMap from '../audio_map.js';
 
-class TrainerWindow extends Component {
-  shuffleIcons = ['/img/icons/shuffle-icon-off.png', '/img/icons/shuffle-icon-on.png'];
-  responseIcons = ['/img/icons/blank.png', '/img/icons/x_mark.png', '/img/icons/check_mark.png'];
+export default class TrainerWindow extends Component {
 
   constructor(props) {
     super(props);
@@ -21,7 +18,7 @@ class TrainerWindow extends Component {
       currentCardIndex: 0,
       setSize: 0,
       shuffle: 0,
-      responseUrl: this.responseIcons[0]
+      responseUrl: this.props.responseIcons[0]
     };
 
     this.checkUserSubmit = this.checkUserSubmit.bind(this);
@@ -59,7 +56,7 @@ class TrainerWindow extends Component {
           currentCard: currentCard,
           setSize: setItemList.length,
           currentCardIndex: index,
-          responseUrl: this.responseIcons[0]
+          responseUrl: this.props.responseIcons[0]
         }
       );
     }
@@ -69,13 +66,17 @@ class TrainerWindow extends Component {
   checkUserSubmit(answer) {
     if(answer.length != 0) {
       if(this.state.currentCard && answer === this.state.currentCard.props.term) {
-        this.setState({responseUrl: this.responseIcons[2]});
+        this.setState({responseUrl: this.props.responseIcons[2]});
       }
 
-      else this.setState({responseUrl: this.responseIcons[1]});
+      else this.setState({responseUrl: this.props.responseIcons[1]});
 
       setTimeout(this.nextCard, 400);
     }
+  }
+
+  getRandomCardIndex(length) {
+    return parseInt((Math.random() * length - 1) + 0);
   }
 
   prevCard() {
@@ -98,7 +99,7 @@ class TrainerWindow extends Component {
         {
           currentCardIndex: index,
           currentCard: this.state.setItemList[index],
-          responseUrl: this.responseIcons[0]
+          responseUrl: this.props.responseIcons[0]
         });
     }
   }
@@ -116,7 +117,7 @@ class TrainerWindow extends Component {
       {
         currentCardIndex: index,
         currentCard: this.state.setItemList[index],
-        responseUrl: this.responseIcons[0]
+        responseUrl: this.props.responseIcons[0]
       });
 
     if (this.state.currentCardIndex == this.state.setSize - 1) { //Reached The end of set list
@@ -134,12 +135,7 @@ class TrainerWindow extends Component {
     this.setState({shuffle: shuffle});
   }
 
-  getRandomCardIndex(length) {
-    return parseInt((Math.random() * length - 1) + 0);
-  }
-
   render() {
-
     if(!this.props.activeSet)  {
       return (
         <div className='select-set col-md-8' align='center'>
@@ -152,7 +148,7 @@ class TrainerWindow extends Component {
       <div className='col-md-8'>
         <UIWindow
           toggleShuffle = {this.toggleShuffle}
-          url = {this.shuffleIcons[this.state.shuffle]} />
+          url = {this.props.shuffleIcons[this.state.shuffle]} />
         <FlashCardsWindow currentCard = {this.state.currentCard}/>
         <UserButtons
           skipCard = {this.nextCard}
@@ -162,14 +158,5 @@ class TrainerWindow extends Component {
         <PinyinTextBar onInputSubmit = {this.checkUserSubmit}/>
       </div>
     );
-
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    activeSet: state.activeSet
-  }
-}
-
-export default connect(mapStateToProps)(TrainerWindow);

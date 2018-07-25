@@ -1,22 +1,17 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {fetchStudySets} from '../actions/index';
-import {selectSet} from '../actions/index';
 
-class StudySets extends Component {
+export default class StudySets extends Component {
   activeTitle = 'study-set-item list-group-item active';
   inactiveTitle = 'study-set-item list-group-item';
 
   constructor(props) {
     super();
-    this.state = {activeSet: null};
     props.fetchStudySets();
   }
 
   renderList() {
     return this.props.studySets.map((studySet) => {
-      var className = (studySet == this.state.activeSet) ? this.activeTitle: this.inactiveTitle;
+      var className = (studySet == this.props.activeSet) ? this.activeTitle: this.inactiveTitle;
 
       return (
           <li
@@ -44,20 +39,3 @@ class StudySets extends Component {
     );
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    studySets: state.studySets
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      fetchStudySets: fetchStudySets,
-      selectSet: selectSet
-    },
-    dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(StudySets);
