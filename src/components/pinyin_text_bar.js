@@ -63,15 +63,17 @@ export default class PinYinTextBar extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onFormSubmit} className="text-bar input-group">
-        <input
-          className="form-control"
-          value={this.state.term}
-          onChange={this.onInputChange} />
-        <span className="input-group-btn">
-          <button type="submit" className="btn btn-secondary">Submit</button>
-        </span>
-      </form>
+      <div align='center'>
+        <form onSubmit={this.onFormSubmit} className="text-bar input-group">
+          <input
+            className="form-control"
+            value={this.state.term}
+            onChange={this.onInputChange} />
+          <span className="input-group-btn">
+            <button type="submit" className="btn btn-secondary">Submit</button>
+          </span>
+        </form>
+      </div>
     );
   }
 }

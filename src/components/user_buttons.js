@@ -11,6 +11,10 @@ const UserButtons = (props) => {
         src= {'/img/icons/play.png'}
         onClick={() => props.playSound()}
         title='play'/>
+    <input className = 'shuffle-icon' type='image'
+               title='shuffle'
+               src= {props.url}
+               onClick={() => props.toggleShuffle()} />
     <input className = 'skip-icon' type='image'
       src= {'/img/icons/skip.png'}
       onClick={() => props.skipCard()}

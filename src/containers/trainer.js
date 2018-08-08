@@ -10,16 +10,19 @@ class Trainer extends Component {
   shuffleIcons = ['/img/icons/shuffle-icon-off.png', '/img/icons/shuffle-icon-on.png'];
   responseIcons = ['/img/icons/blank.png', '/img/icons/x_mark.png', '/img/icons/check_mark.png'];
 
+  componentDidMount() {
+    this.props.fetchStudySets();
+  }
+
   render() {
     return (
       <div>
         <StudySets studySets = {this.props.studySets}
-          fetchStudySets = {this.props.fetchStudySets}
-          selectSet = {this.props.selectSet}
-          activeSet = {this.props.activeSet} />
+        selectSet = {this.props.selectSet}
+        activeSet = {this.props.activeSet} />
         <TrainerWindow activeSet = {this.props.activeSet}
-          shuffleIcons = {this.shuffleIcons}
-          responseIcons = {this.responseIcons} />
+        shuffleIcons = {this.shuffleIcons}
+        responseIcons = {this.responseIcons} />
       </div>
     )
   }

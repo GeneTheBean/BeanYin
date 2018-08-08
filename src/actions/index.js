@@ -1,8 +1,8 @@
 const CLIENT_ID = 'GD6kTTtNfy';
 const API_URL = `https://api.quizlet.com/2.0/users/thedupemaster/sets?client_id=${CLIENT_ID}&whitespace=1`;
 
-export const FETCH_SETS = 'FETCH_SETS'
-export const STUDY_SET_SELECTED = 'STUDY_SET_SELECTED';
+export const FETCH_SETS = 'fetch_study_set'
+export const STUDY_SET_SELECTED = 'study_set_select';
 
 export function fetchStudySets() {
   var request = // SEND REQUEST

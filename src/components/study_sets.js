@@ -4,11 +4,6 @@ export default class StudySets extends Component {
   activeTitle = 'study-set-item list-group-item active';
   inactiveTitle = 'study-set-item list-group-item';
 
-  constructor(props) {
-    super();
-    props.fetchStudySets();
-  }
-
   renderList() {
     return this.props.studySets.map((studySet) => {
       var className = (studySet == this.props.activeSet) ? this.activeTitle: this.inactiveTitle;
@@ -28,14 +23,28 @@ export default class StudySets extends Component {
   }
 
   render() {
+    if(this.props.studySets.map) {
+      return(
+        <div className='row'>
+          <div className = 'study-sets col-md-12' align='center'>
+            <h4> Quizlet Study Sets </h4>
+            <ul className='set-list list-group'>
+              {this.renderList()}
+            </ul>
+          </div>
+        </div>
+      );
+    }
 
-    return(
-      <div className='col-sm-4' align='center'>
-        <h3> Your Study Sets </h3>
-        <ul className='list-group'>
-          {this.renderList()}
-        </ul>
+    else return (
+      <div>
+        <h4 className="text-danger">The API request could not be made. Please use a CORS extension for your Browser and try again.
+        </h4>
+        <h5><a href='https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/?src=recommended'>Firefox Add-on CORS Everywhere</a>
+        </h5>
+        <h5><a href='https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en'>Chrome Extension Allow-Control-Allow-Origin: *</a>
+        </h5>
       </div>
-    );
+    )
   }
 }

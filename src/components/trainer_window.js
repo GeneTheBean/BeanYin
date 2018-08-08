@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import FlashCardsWindow from './flash_cards_window';
 import PinyinTextBar from './pinyin_text_bar';
 import StudySetItem from './study_set_item';
-import UIWindow from './ui_window';
 import ResponseBar from './response_bar';
 import UserButtons from './user_buttons.js';
 import audioMap from '../audio_map.js';
@@ -138,21 +137,22 @@ export default class TrainerWindow extends Component {
   render() {
     if(!this.props.activeSet)  {
       return (
-        <div className='select-set col-md-8' align='center'>
-          <h2> Select a study set. </h2>
+        <div className='row'>
+          <div className='select-set col-md-12' align='center'>
+            <h2></h2>
+          </div>
         </div>
       );
     }
 
     return (
-      <div className='col-md-8'>
-        <UIWindow
-          toggleShuffle = {this.toggleShuffle}
-          url = {this.props.shuffleIcons[this.state.shuffle]} />
+      <div className='col-md-4 center-block'>
         <FlashCardsWindow currentCard = {this.state.currentCard}/>
         <UserButtons
           skipCard = {this.nextCard}
           rewindCard = {this.prevCard}
+          toggleShuffle = {this.toggleShuffle}
+          url = {this.props.shuffleIcons[this.state.shuffle]}
           playSound = {this.playAudio}/>
         <ResponseBar url = {this.state.responseUrl} />
         <PinyinTextBar onInputSubmit = {this.checkUserSubmit}/>

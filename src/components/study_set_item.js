@@ -7,10 +7,6 @@ export default class StudySetItem extends Component {
     this.state = {text: props.definition};
   }
 
-  className() {
-    return this.props.className;
-  }
-
   render() {
     return (
         <div className='card media'>
